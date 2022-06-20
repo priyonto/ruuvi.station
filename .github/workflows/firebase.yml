@@ -32,6 +32,9 @@ jobs:
         ruby-version: '3.0'
         bundler-cache: true
 
+    - name: CocoaPods Install
+      run: pod install
+
     - name: Cocoapods Cache
       uses: actions/cache@v2
       with:
@@ -39,9 +42,6 @@ jobs:
         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
                 ${{ runner.os }}-pods-
-
-    - name: CocoaPods Install
-      run: pod install
 
     - name: Run linters
       uses: wearerequired/lint-action@v2
