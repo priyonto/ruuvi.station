@@ -43,8 +43,13 @@ jobs:
     - name: CocoaPods Install
       run: pod install
 
+    - name: Run linters
+      uses: wearerequired/lint-action@v2
+      with:
+        swiftlint: true
+
     - name: Build
-      run: xcodebuild -workspace station.xcworkspace -scheme station_dev -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13'
+      run: xcodebuild -workspace station.xcworkspace -scheme station_dev -destination "generic/platform=iOS" -configuration Debug build CODE_SIGNING_ALLOWED=NO
     
     - name: Deploy to Firebase via Fastlane 
       run: |
