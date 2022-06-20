@@ -49,11 +49,11 @@ jobs:
         swiftlint: true
 
     - name: Build
-      run: xcodebuild -workspace station.xcworkspace -scheme station_dev -destination "generic/platform=iOS" -configuration Debug build CODE_SIGNING_ALLOWED=NO
+      run: xcodebuild -workspace station.xcworkspace -scheme station -destination "generic/platform=iOS" -configuration Release build CODE_SIGNING_ALLOWED=NO
     
     - name: Deploy to Firebase via Fastlane 
       run: |
-        bundle exec fastlane upload_to_firebase group:AlphaTesters scheme:station_dev
+        bundle exec fastlane upload_to_firebase group:AlphaTesters scheme:station
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         API_TOKEN: ${{ secrets.API_TOKEN }}
