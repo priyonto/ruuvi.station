@@ -20,20 +20,6 @@ jobs:
       with:
         xcode-version: '13.4'
         
-    - name: Install SSH private key
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        name: id_rsa-private
-        known_hosts: ${{ secrets.KNOWN_HOSTS }}
-      
-    - name: Install SSH key for Certificate repo
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.CERT_PRIVATE_KEY }}
-        name: id_rsa-certificate
-        known_hosts: ${{ secrets.KNOWN_HOSTS }}
-        
     - name: Install SSH key for Keystore repo
       uses: shimataro/ssh-key-action@v2
       with:
