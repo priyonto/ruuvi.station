@@ -47,9 +47,6 @@ jobs:
       uses: wearerequired/lint-action@v2
       with:
         swiftlint: true
-
-    - name: Build
-      run: xcodebuild -workspace station.xcworkspace -scheme station -destination "generic/platform=iOS" -configuration Release build CODE_SIGNING_ALLOWED=NO
     
     - name: Deploy to Firebase via Fastlane 
       run: |
