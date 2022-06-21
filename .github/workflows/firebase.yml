@@ -27,7 +27,7 @@ jobs:
         name: id_rsa-keystore
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
         config: |
-          Host Github
+          Host *
             HostName github.com
             AddKeysToAgent yes
             IdentityFile ~/.ssh/id_rsa-keystore
@@ -39,8 +39,7 @@ jobs:
         name: id_rsa-certificate
         known_hosts: ${{ secrets.KNOWN_HOSTS_CERT }}
         config: |
-          Host Github
-            HostName github.com
+          Host *
             IdentityFile ~/.ssh/id_rsa-certificate
             
     - name: Try cloning keystore
