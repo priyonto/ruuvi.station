@@ -68,7 +68,7 @@ jobs:
     
     - name: Deploy to Firebase via Fastlane 
       run: |
-        bundle exec fastlane upload_to_firebase group:AlphaTesters scheme:station
+        bundle exec fastlane upload_to_firebase build_number:304 scheme:station_dev
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         API_TOKEN: ${{ secrets.API_TOKEN }}
