@@ -29,7 +29,6 @@ jobs:
         config: |
           Host *
             HostName github.com
-            CheckHostIP no
             AddKeysToAgent yes
             IdentityFile ~/.ssh/id_rsa-keystore
             
@@ -41,7 +40,6 @@ jobs:
         known_hosts: ${{ secrets.KNOWN_HOSTS_CERT }}
         config: |
           Host *
-            CheckHostIP no
             IdentityFile ~/.ssh/id_rsa-certificate
             
     - name: Try ssh connection
