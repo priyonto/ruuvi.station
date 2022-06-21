@@ -63,6 +63,12 @@ jobs:
       uses: wearerequired/lint-action@v2
       with:
         swiftlint: true
+        
+    - name: Store certificates
+      run: |
+        bundle exec fastlane match development
+        bundle exec fastlane match adhoc
+        bundle exec fastlane match appstore
     
     - name: Deploy to Firebase via Fastlane 
       run: |
