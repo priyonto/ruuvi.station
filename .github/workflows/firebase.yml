@@ -45,9 +45,9 @@ jobs:
             IdentityFile ~/.ssh/id_rsa-certificate
             
     - name: Try cloning repos
-      run:
-        git@github.com:ruuvi/com.ruuvi.station.ios.keystore.git
-        git@github.com:ruuvi/com.ruuvi.station.ios.certificates.git
+      run: |
+        git clone git@github.com:ruuvi/com.ruuvi.station.ios.keystore.git
+        git clone git@github.com:ruuvi/com.ruuvi.station.ios.certificates.git
       
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
