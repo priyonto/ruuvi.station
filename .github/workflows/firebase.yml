@@ -19,18 +19,6 @@ jobs:
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: latest-stable
-        
-    - name: Install SSH key for Keystore repo
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.KEYSTORE_PRIVATE_KEY }}
-        name: id_rsa-keystore
-        known_hosts: ${{ secrets.KNOWN_HOSTS }}
-        config: |
-          Host *
-            AddKeysToAgent yes
-            UseKeychain yes
-            IdentityFile ~/.ssh/id_rsa-keystore
             
     - name: Install SSH key for Certficate repo
       uses: shimataro/ssh-key-action@v2
@@ -44,10 +32,13 @@ jobs:
             UseKeychain yes
             IdentityFile ~/.ssh/id_rsa-certificate
             
-    - name: Try cloning repos
+    - name: Try cloning certificates
+      run: |
+        git clone git@github.com:ruuvi/com.ruuvi.station.ios.certificates.git
+        
+    - name: Try cloning keystore
       run: |
         git clone git@github.com:ruuvi/com.ruuvi.station.ios.keystore.git
-        git clone git@github.com:ruuvi/com.ruuvi.station.ios.certificates.git
       
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
