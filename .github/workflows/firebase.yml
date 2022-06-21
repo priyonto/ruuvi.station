@@ -29,7 +29,6 @@ jobs:
         config: |
           Host *
             AddKeysToAgent yes
-            UseKeychain yes
             IdentityFile ~/.ssh/id_rsa-keystore
             
     - name: Install SSH key for Certficate repo
@@ -37,7 +36,6 @@ jobs:
       with:
         key: ${{ secrets.CERT_PRIVATE_KEY }}
         name: id_rsa-certificate
-        known_hosts: ${{ secrets.KNOWN_HOSTS }}
         config: |
           Host *
             IdentityFile ~/.ssh/id_rsa-certificate
