@@ -36,6 +36,7 @@ jobs:
       with:
         key: ${{ secrets.CERT_PRIVATE_KEY }}
         name: id_rsa-certificate
+        known_hosts: ${{ secrets.KNOWN_HOSTS_CERT }}
         config: |
           Host *
             IdentityFile ~/.ssh/id_rsa-certificate
