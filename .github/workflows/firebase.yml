@@ -27,7 +27,7 @@ jobs:
         name: id_rsa-keystore
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
         config: |
-          Host *
+          Host Keystore
             AddKeysToAgent yes
             UseKeychain yes
             IdentityFile ~/.ssh/id_rsa-keystore
@@ -39,7 +39,7 @@ jobs:
         name: id_rsa-certificate
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
         config: |
-          Host *
+          Host Certificate
             AddKeysToAgent yes
             UseKeychain yes
             IdentityFile ~/.ssh/id_rsa-certificate
