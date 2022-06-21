@@ -66,6 +66,9 @@ jobs:
     
     - name: Deploy to Firebase via Fastlane 
       run: |
+        export LANG=en_US.UTF-8
+        export LANGUAGE=en_US.UTF-8
+        export LC_ALL=en_US.UTF-8
         bundle exec fastlane upload_to_firebase build_number:304 scheme:station_dev
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
