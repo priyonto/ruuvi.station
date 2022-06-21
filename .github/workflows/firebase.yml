@@ -42,13 +42,13 @@ jobs:
           Host *
             IdentityFile ~/.ssh/id_rsa-certificate
             
-    - name: Try cloning certificates
-      run: |
-        git clone git@github.com:ruuvi/com.ruuvi.station.ios.certificates.git
-        
     - name: Try cloning keystore
       run: |
         git clone git@github.com:ruuvi/com.ruuvi.station.ios.keystore.git
+            
+    - name: Try cloning certificates
+      run: |
+        git clone git@github.com:ruuvi/com.ruuvi.station.ios.certificates.git
       
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
