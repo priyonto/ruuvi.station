@@ -19,6 +19,13 @@ jobs:
       uses: sinoru/actions-setup-xcode@v2
       with:
         xcode-version: '13.4'
+        
+    - name: Install SSH private key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        name: id_rsa-private
+        known_hosts: ${{ secrets.KNOWN_HOSTS }}
       
     - name: Install SSH key for Certificate repo
       uses: shimataro/ssh-key-action@v2
