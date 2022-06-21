@@ -27,7 +27,7 @@ jobs:
         name: id_rsa-keystore
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
         config: |
-          Host Keystore
+          Host *
             AddKeysToAgent yes
             UseKeychain yes
             IdentityFile ~/.ssh/id_rsa-keystore
@@ -39,11 +39,16 @@ jobs:
         name: id_rsa-certificate
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
         config: |
-          Host Certificate
+          Host *
             AddKeysToAgent yes
             UseKeychain yes
             IdentityFile ~/.ssh/id_rsa-certificate
-    
+            
+    - name: Try cloning repos
+      run:
+        git@github.com:ruuvi/com.ruuvi.station.ios.keystore.git
+        git@github.com:ruuvi/com.ruuvi.station.ios.certificates.git
+      
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
       with:
