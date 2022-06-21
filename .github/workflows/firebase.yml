@@ -23,13 +23,13 @@ jobs:
     - name: Install SSH key for Keystore repo
       uses: shimataro/ssh-key-action@v2
       with:
-        key: ${{ secrets.KEYSTORE_PRIVATE_KEY }}
+        key: ${{ secrets.CERT_PRIVATE_KEY }}
         name: id_rsa-kestore
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
         
-    - name: Clone keystore repo test
+    - name: Clone certificate repo test
       run: 
-        git clone https://github.com/ruuvi/com.ruuvi.station.ios.keystore.git
+        git clone git@github.com:ruuvi/com.ruuvi.station.ios.certificates.git
     
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
