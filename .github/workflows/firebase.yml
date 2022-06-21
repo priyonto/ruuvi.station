@@ -40,6 +40,10 @@ jobs:
         key: ${{ secrets.KEYSTORE_PRIVATE_KEY }}
         name: id_rsa-kestore
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
+        
+    - name: Clone keystore repo test
+      run: 
+        git clone git@github.com:ruuvi/com.ruuvi.station.ios.keystore.git
     
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
