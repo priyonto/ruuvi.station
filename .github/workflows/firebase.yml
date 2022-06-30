@@ -27,7 +27,7 @@ jobs:
         name: id_rsa-keystore
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
         config: |
-          Host id_rsa-keystore
+          Host *
             HostName github.com
             User git
             IdentityFile ~/.ssh/id_rsa-keystore
@@ -39,7 +39,7 @@ jobs:
         name: id_rsa-certificate
         known_hosts: ${{ secrets.KNOWN_HOSTS_CERT }}
         config: |
-          Host id_rsa-certificate
+          Host *
             Hostname github.com
             User git
             IdentityFile ~/.ssh/id_rsa-certificate
