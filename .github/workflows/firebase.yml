@@ -29,6 +29,7 @@ jobs:
         config: |
           Host id_rsa-keystore
             HostName github.com
+            User git
             IdentityFile ~/.ssh/id_rsa-keystore
             
     - name: Install SSH key for Certficate repo
@@ -40,6 +41,7 @@ jobs:
         config: |
           Host id_rsa-certificate
             Hostname github.com
+            User git
             IdentityFile ~/.ssh/id_rsa-certificate
       
     - name: Clone keystore
