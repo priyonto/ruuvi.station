@@ -43,13 +43,13 @@ jobs:
             IdentityFile ~/.ssh/id_rsa-certificate
             
     - name: Testing SSH Connection 1
-      run: ssh -T git@<id_rsa-keystore>
+      run: ssh -T git@id_rsa-keystore
       
     - name: Clone keystore
       run: git clone git@github.com:ruuvi/com.ruuvi.station.ios.keystore.git
       
     - name: Testing SSH Connection 2
-      run: ssh -T git@<id_rsa-certificate>
+      run: ssh -T git@id_rsa-certificate
     
     - name: Clone certificates
       run: git clone git@github.com:ruuvi/com.ruuvi.station.ios.certificates.git
