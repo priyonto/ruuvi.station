@@ -59,7 +59,7 @@ jobs:
         export LANG=en_US.UTF-8
         export LANGUAGE=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
-        bundle exec fastlane upload_to_firebase build_number:308 scheme:station_dev
+        bundle exec fastlane upload_to_firebase build_number:308 scheme:station_dev --verbose
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         API_TOKEN: ${{ secrets.API_TOKEN }}
