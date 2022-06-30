@@ -41,16 +41,10 @@ jobs:
           Host id_rsa-certificate
             Hostname github.com
             IdentityFile ~/.ssh/id_rsa-certificate
-            
-    - name: Testing SSH Connection 1
-      run: ssh -T git@id_rsa-keystore
       
     - name: Clone keystore
       run: git clone git@github.com:ruuvi/com.ruuvi.station.ios.keystore.git
-      
-    - name: Testing SSH Connection 2
-      run: ssh -T git@id_rsa-certificate
-    
+
     - name: Clone certificates
       run: git clone git@github.com:ruuvi/com.ruuvi.station.ios.certificates.git
       
@@ -75,12 +69,6 @@ jobs:
       uses: wearerequired/lint-action@v2
       with:
         swiftlint: true
-        
-    - name: Store certificates
-      run: |
-        bundle exec fastlane match development
-        bundle exec fastlane match adhoc
-        bundle exec fastlane match appstore
     
     - name: Deploy to Firebase via Fastlane 
       run: |
