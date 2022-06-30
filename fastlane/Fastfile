@@ -3,14 +3,6 @@ fastlane_require 'fileutils'
 
 default_platform(:ios)
 
-before_all do
-  sh("rm", "-rf", "com.ruuvi.station.ios.keystore")
-  sh("git", "clone", "git@github.com:ruuvi/com.ruuvi.station.ios.keystore.git")
-  ENV["GSP_PATH"] = "./fastlane/com.ruuvi.station.ios.keystore/GoogleService-Info.plist"
-  ENV["GOOGLE_APP_ID"] = get_info_plist_value(path: ENV["GSP_PATH"], key: "GOOGLE_APP_ID")
-  ENV["FIREBASE_REFRESH_TOKEN"] = get_info_plist_value(path: "./fastlane/com.ruuvi.station.ios.keystore/CI.plist", key: "FIREBASE_REFRESH_TOKEN")
-end
-
 def remove_artifacts
   clean_build_artifacts()
   begin
@@ -117,10 +109,6 @@ platform :ios do
       release_notes: release_notes,
       ipa_path: "./Build/" + SCHEME + ".ipa",
       groups: options[:group]
-    )
-    upload_symbols_to_crashlytics(
-      dsym_path: "./Build/" + SCHEME + ".app.dSYM.zip",
-      gsp_path: ENV["GSP_PATH"]
     )
     skip_docs
   end
