@@ -54,6 +54,10 @@ jobs:
       with:
         swiftlint: true
     
+    - name: Install certificates
+      run: |
+        bundle exec fastlane match adhoc
+    
     - name: Deploy to Firebase via Fastlane 
       run: |
         export LANG=en_US.UTF-8
