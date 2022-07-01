@@ -51,6 +51,8 @@
 "Defaults.PruningOffsetHours.title" = "Смещение Очистки в Часах";
 "Defaults.Interval.Hour.string" = "ч";
 "Defaults.ChartDurationHours.title" = "Размер Графиков";
+"Defaults.AppLaunchRequiredForReview.Count.title" = "Количество запусков приложения, чтобы запросить обзор в первый раз";
+"Defaults.AskReviewIfLaunchDivisibleBy.Count.title" = "Запросить отзыв, если запуск приложения делится на";
 "DiscoverTable.SectionTitle.WebTags" = "Виртуальные";
 "DiscoverTable.BluetoothDisabledAlert.title" = "Bluetooth выключен";
 "DiscoverTable.BluetoothDisabledAlert.message" = "Ruuvi Station необходим bluetooth чтобы слушать сенсоры. Откройте Настройки и включите Bluetooth.";
@@ -242,7 +244,7 @@ If you cannot see the Language option in the settings, make sure that you have a
 "TagSettings.Alerts.Off" = "Отключено";
 "TagSettings.Alerts.Temperature.description" = "Уведомление если меньше %.0f или больше %.0f";
 "TagSettings.Label.alerts.text" = "Уведомления";
-"TagSettings.backgroundImageLabel.text" = "ФОНОВОЕ\nИЗОБРАЖЕНИЕ";
+"TagSettings.backgroundImageLabel.text" = "Фоновое\nизображение";
 "TagSettings.batteryVoltageTitleLabel.text" = "Напряжение Батареи";
 "HumidityCalibration.Button.Calibrate.title" = "Калибровать";
 "HumidityCalibration.lastCalibrationDate.format" = "Откалибровано: %@";

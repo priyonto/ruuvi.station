@@ -51,6 +51,8 @@
 "Defaults.PruningOffsetHours.title" = "Beskärning av förskjutningstider";
 "Defaults.Interval.Hour.string" = "h";
 "Defaults.ChartDurationHours.title" = "Historikens längd";
+"Defaults.AppLaunchRequiredForReview.Count.title" = "Appstartsräkning för att be om granskning för första gången";
+"Defaults.AskReviewIfLaunchDivisibleBy.Count.title" = "Fråga granskning om appstart är delbart med";
 "DiscoverTable.SectionTitle.WebTags" = "Virtuella sensorer";
 "DiscoverTable.BluetoothDisabledAlert.title" = "Bluetooth är inte aktiverat";
 "DiscoverTable.BluetoothDisabledAlert.message" = "Ruuvi Station behöver bluetooth för att fungera. Gå till Inställningar och aktivera Bluetooth.";
@@ -242,7 +244,7 @@ If you cannot see the Language option in the settings, make sure that you have a
 "TagSettings.Alerts.Off" = "Av";
 "TagSettings.Alerts.Temperature.description" = "Alarmera när mindre än %.0f eller mer än %.0f";
 "TagSettings.Label.alerts.text" = "Alarm";
-"TagSettings.backgroundImageLabel.text" = "BAKGRUNDSBILD";
+"TagSettings.backgroundImageLabel.text" = "Bakgrundsbild";
 "TagSettings.batteryVoltageTitleLabel.text" = "Batterispänning";
 "HumidityCalibration.Button.Calibrate.title" = "Kalibrera";
 "HumidityCalibration.lastCalibrationDate.format" = "Kalibrerad: %@";
