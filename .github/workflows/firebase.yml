@@ -38,6 +38,23 @@ jobs:
         ruby-version: '3.0'
         bundler-cache: true
 
+    - name: 'Setup Keychain and store certificates'
+      run: |
+        bundle exec fastlane run create_keychain name:KEYCHAIN_USER password:KEYCHAIN_PASS
+        bundle exec fastlane match adhoc
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        API_TOKEN: ${{ secrets.API_TOKEN }}
+        FIREBASE_REFRESH_TOKEN: ${{ secrets.FIREBASE_REFRESH_TOKEN }}
+        GOOGLE_APP_ID: ${{ secrets.GOOGLE_APP_ID }}
+        PWD: ${{ secrets.PWD }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+        FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
+        KEYCHAIN_USER: ${{ secrets.KEYCHAIN_USER }}
+        KEYCHAIN_PASS: ${{ secrets.KEYCHAIN_PASS }}
+
     - name: CocoaPods Install
       run: pod install
 
@@ -53,20 +70,6 @@ jobs:
       uses: wearerequired/lint-action@v2
       with:
         swiftlint: true
-
-    - name: 'Setup Keychain'
-      run: |
-        fastlane create_keychain name:KEYCHAIN_USER password:KEYCHAIN_PASS
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        API_TOKEN: ${{ secrets.API_TOKEN }}
-        FIREBASE_REFRESH_TOKEN: ${{ secrets.FIREBASE_REFRESH_TOKEN }}
-        GOOGLE_APP_ID: ${{ secrets.GOOGLE_APP_ID }}
-        PWD: ${{ secrets.PWD }}
-        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
-        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
-        FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
       
     
     - name: Deploy to Firebase via Fastlane 
@@ -74,7 +77,6 @@ jobs:
         export LANG=en_US.UTF-8
         export LANGUAGE=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
-        bundle exec fastlane match adhoc
         bundle exec fastlane upload_to_firebase build_number:308 scheme:station_dev --verbose
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
@@ -86,3 +88,5 @@ jobs:
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
         FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
         FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
+        KEYCHAIN_USER: ${{ secrets.KEYCHAIN_USER }}
+        KEYCHAIN_PASS: ${{ secrets.KEYCHAIN_PASS }}
