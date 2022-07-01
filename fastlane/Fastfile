@@ -115,7 +115,6 @@ platform :ios do
     match(type: "adhoc", app_identifier: "com.ruuvi.station", readonly: true)
     build_app(
       scheme: SCHEME,
-      export_xcargs: "-allowProvisioningUpdates",
       configuration: configuration,
       output_directory: "./Build",
       export_options: {
