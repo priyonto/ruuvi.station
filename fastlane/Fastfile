@@ -15,6 +15,9 @@ def remove_artifacts
 end
 
 platform :ios do
+  before_all do
+      setup_ci if ENV['CI']
+  end
   def install_pods
     cocoapods(
       podfile: "Podfile",

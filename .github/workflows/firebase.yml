@@ -36,27 +36,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.0'
-        bundler-cache: true
-
-    - name: 'Setup Keychain and store certificates'
-      run: |
-        bundle exec fastlane run create_keychain name:KEYCHAIN_USER password:KEYCHAIN_PASS
-        bundle exec fastlane match adhoc
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        API_TOKEN: ${{ secrets.API_TOKEN }}
-        FIREBASE_REFRESH_TOKEN: ${{ secrets.FIREBASE_REFRESH_TOKEN }}
-        GOOGLE_APP_ID: ${{ secrets.GOOGLE_APP_ID }}
-        PWD: ${{ secrets.PWD }}
-        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
-        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
-        FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
-        KEYCHAIN_USER: ${{ secrets.KEYCHAIN_USER }}
-        KEYCHAIN_PASS: ${{ secrets.KEYCHAIN_PASS }}
-        SPACESHIP_ONLY_ALLOW_INTERACTIVE_2FA: ${{ secrets.SPACESHIP_ONLY_ALLOW_INTERACTIVE_2FA}}
-        FASTLANE_IS_INTERACTIVE: ${{ secrets.FASTLANE_IS_INTERACTIVE}}
-        CI: ${{ secrets.CI }}
+        bundler-cache: true        
 
     - name: CocoaPods Install
       run: pod install
@@ -73,7 +53,6 @@ jobs:
       uses: wearerequired/lint-action@v2
       with:
         swiftlint: true
-      
     
     - name: Deploy to Firebase via Fastlane 
       run: |
@@ -94,3 +73,7 @@ jobs:
         KEYCHAIN_USER: ${{ secrets.KEYCHAIN_USER }}
         KEYCHAIN_PASS: ${{ secrets.KEYCHAIN_PASS }}
         CI: ${{ secrets.CI }}
+        APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID}}
+        APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID}}
+        APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64}}
+        APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY}}
