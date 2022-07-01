@@ -51,7 +51,8 @@ platform :ios do
   fastlane upload_to_firebase group:AlphaTest scheme:station_dev
   """
   lane :upload_to_firebase do |options|
-      BUILD_NUMBER = options[:build_number]
+    setup_ci if ENV['CI']
+    BUILD_NUMBER = options[:build_number]
     UI.crash!('build_number parameter is required') unless BUILD_NUMBER
     SCHEME = options[:scheme]
     UI.crash!('scheme parameter is required') unless SCHEME

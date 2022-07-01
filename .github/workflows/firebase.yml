@@ -54,6 +54,7 @@ jobs:
         FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
         KEYCHAIN_USER: ${{ secrets.KEYCHAIN_USER }}
         KEYCHAIN_PASS: ${{ secrets.KEYCHAIN_PASS }}
+        SPACESHIP_ONLY_ALLOW_INTERACTIVE_2FA: ${{ secrets.SPACESHIP_ONLY_ALLOW_INTERACTIVE_2FA}}
 
     - name: CocoaPods Install
       run: pod install
