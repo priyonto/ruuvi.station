@@ -36,7 +36,27 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.0'
-        bundler-cache: true        
+        bundler-cache: true
+        
+    - name: Install iOS Certificate and Profile
+      run: bundle exec fastlane install_certificate_and_profile
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        API_TOKEN: ${{ secrets.API_TOKEN }}
+        FIREBASE_REFRESH_TOKEN: ${{ secrets.FIREBASE_REFRESH_TOKEN }}
+        GOOGLE_APP_ID: ${{ secrets.GOOGLE_APP_ID }}
+        PWD: ${{ secrets.PWD }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+        FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
+        KEYCHAIN_USER: ${{ secrets.KEYCHAIN_USER }}
+        KEYCHAIN_PASS: ${{ secrets.KEYCHAIN_PASS }}
+        CI: ${{ secrets.CI }}
+        APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID}}
+        APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID}}
+        APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64}}
+        APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY}}   
 
     - name: CocoaPods Install
       run: pod install
