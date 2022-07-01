@@ -37,6 +37,10 @@ jobs:
       with:
         ruby-version: '3.0'
         bundler-cache: true
+    
+    - name: Update fastlane
+      run: |
+        bundle update fastlane
 
     - name: 'Setup Keychain and store certificates'
       run: |
