@@ -19,9 +19,12 @@ final class RuuviTagSubjectCombine {
     let updateSubject = PassthroughSubject<AnyRuuviTagSensor, Never>()
     let deleteSubject = PassthroughSubject<AnyRuuviTagSensor, Never>()
 
-    private var ruuviTagController: FetchedRecordsController<RuuviTagSQLite>
+//    private var ruuviTagController: FetchedRecordsController<RuuviTagSQLite>
     private var ruuviTagsRealmToken: NotificationToken?
     private var ruuviTagRealmCache = [AnyRuuviTagSensor]()
+    // Controls the duration of database observation
+    private var ruuviTagDataTransactionObserver: DatabaseCancellable?
+    private var observer: TransactionObserver?
 
     deinit {
         ruuviTagsRealmToken?.invalidate()
@@ -33,22 +36,30 @@ final class RuuviTagSubjectCombine {
         self.realm = realm
 
         let request = RuuviTagSQLite.order(RuuviTagSQLite.versionColumn)
-        self.ruuviTagController = try! FetchedRecordsController(sqlite.database.dbPool, request: request)
-        try! self.ruuviTagController.performFetch()
+//        let observation = ValueObservation.tracking(request.fetchAll)
+//        self.ruuviTagDataTransactionObserver = observation.start(in: sqlite.database.dbPool,
+//                          onError: { _ in },
+//                          onChange: { records in
+//            dump(records)
+//        })
+        sqlite.database.dbPool.add(transactionObserver: self)
 
-        self.ruuviTagController.trackChanges(onChange: { [weak self] _, record, event in
-            guard let sSelf = self else { return }
-            switch event {
-            case .insertion:
-                sSelf.insertSubject.send(record.any)
-            case .update:
-                sSelf.updateSubject.send(record.any)
-            case .deletion:
-                sSelf.deleteSubject.send(record.any)
-            case .move:
-                break
-            }
-        })
+//        self.ruuviTagController = try! FetchedRecordsController(sqlite.database.dbPool, request: request)
+//        try! self.ruuviTagController.performFetch()
+//
+//        self.ruuviTagController.trackChanges(onChange: { [weak self] _, record, event in
+//            guard let sSelf = self else { return }
+//            switch event {
+//            case .insertion:
+//                sSelf.insertSubject.send(record.any)
+//            case .update:
+//                sSelf.updateSubject.send(record.any)
+//            case .deletion:
+//                sSelf.deleteSubject.send(record.any)
+//            case .move:
+//                break
+//            }
+//        })
 
         DispatchQueue.main.async { [weak self] in
             guard let sSelf = self else { return }
@@ -79,5 +90,23 @@ final class RuuviTagSubjectCombine {
                 }
             }
         }
+    }
+}
+
+extension RuuviTagSubjectCombine: TransactionObserver {
+    func observes(eventsOfKind eventKind: DatabaseEventKind) -> Bool {
+        return eventKind.tableName == "ruuvi_tag_sensors"
+    }
+
+    func databaseDidChange(with event: DatabaseEvent) {
+
+    }
+
+    func databaseDidCommit(_ db: Database) {
+
+    }
+
+    func databaseDidRollback(_ db: Database) {
+
     }
 }

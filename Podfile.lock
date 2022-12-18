@@ -132,9 +132,9 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
-  - GRDB.swift (4.14.0):
-    - GRDB.swift/standard (= 4.14.0)
-  - GRDB.swift/standard (4.14.0)
+  - GRDB.swift (6.5.0):
+    - GRDB.swift/standard (= 6.5.0)
+  - GRDB.swift/standard (6.5.0)
   - Humidity (0.1.5)
   - iOSDFULibrary (4.11.1):
     - ZIPFoundation (= 0.9.11)
@@ -414,7 +414,7 @@ PODS:
     - RuuviPersistence
   - RuuviReactor/Impl (0.0.1):
     - FutureX
-    - GRDB.swift
+    - GRDB.swift (~> 6.5.0)
     - RealmSwift
     - RuuviContext
     - RuuviOntology
@@ -585,7 +585,7 @@ DEPENDENCIES:
   - FLEX
   - FutureX
   - GestureInstructions
-  - GRDB.swift (~> 4.14.0)
+  - GRDB.swift (~> 6.5.0)
   - Humidity (from `https://github.com/rinat-enikeev/Humidity.git`)
   - iOSDFULibrary
   - KeychainAccess
@@ -822,7 +822,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 2c2792d43ebdea0524adbc90cba9139721f3039b
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
-  GRDB.swift: 8cc3ab7c8b8b4ac1761deb8dca4b51c1c9d429f8
+  GRDB.swift: 390578b9b9c42ebcc03d2b94da520fb46930d6ea
   Humidity: fb16fe2430b7a8aa979821ede5b5164519fca6d1
   iOSDFULibrary: 3500ac00451aa7d8ec48a752e91099669a2c1d27
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
@@ -856,7 +856,7 @@ SPEC CHECKSUMS:
   RuuviPersistence: a96bcb392aec074177a0a262fecefe522eb494dd
   RuuviPool: 3fd04d034b3a77177e3832de3fe8d0242aa1e41b
   RuuviPresenters: 9e7ab27726604db02b29bf8c8a8289bbc624e303
-  RuuviReactor: 5fd4dcff29ba553c36e26b0a0334dc5007d26fcd
+  RuuviReactor: 21ffc316abdb16866bb69b89d8c2532c371f2a84
   RuuviRepository: 2a98401ff527bc19ec488281e5bbe5a820c405ca
   RuuviService: 0975ab31c41c88ed78613d67d4bd67e75011b28d
   RuuviStorage: b7f0d9e11fdc0bb73317b70464cc04e8b5b5d6d7
@@ -866,6 +866,6 @@ SPEC CHECKSUMS:
   Swinject: 97112918bd7e0785dc2df7036213f3c8cbba6586
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: d9aab10bbea761ed38b1911e3fd6efbe75c040c9
+PODFILE CHECKSUM: 465b6f07b9c85a317be0500506128557cda37314
 
 COCOAPODS: 1.11.3

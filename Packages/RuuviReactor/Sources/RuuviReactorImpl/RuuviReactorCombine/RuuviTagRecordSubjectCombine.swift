@@ -23,7 +23,7 @@ final class RuuviTagRecordSubjectCombine {
 
     private var ruuviTagDataRealmToken: NotificationToken?
     private var ruuviTagDataRealmCache = [AnyRuuviTagSensorRecord]()
-    private var ruuviTagDataTransactionObserver: TransactionObserver?
+    private var ruuviTagDataTransactionObserver: DatabaseCancellable?
     deinit {
         ruuviTagDataRealmToken?.invalidate()
     }
@@ -51,10 +51,11 @@ final class RuuviTagRecordSubjectCombine {
             try! request.fetchAll(db)
         }.removeDuplicates()
 
-        self.ruuviTagDataTransactionObserver = try! observation.start(in: sqlite.database.dbPool) {
-            [weak self] records in
+        self.ruuviTagDataTransactionObserver = observation.start(in: sqlite.database.dbPool,
+                                                                 onError: { _ in },
+                                                                 onChange: { [weak self] records in
             self?.subject.send(records.map({ $0.any }))
-        }
+        })
 
         let results = self.realm.main.objects(RuuviTagDataRealm.self)
             .filter("ruuviTag.uuid == %@ || ruuviTag.mac == %@",

@@ -22,7 +22,7 @@ final class RuuviTagLastRecordSubjectCombine {
     let subject = PassthroughSubject<AnyRuuviTagSensorRecord, Never>()
 
     private var ruuviTagDataRealmToken: NotificationToken?
-    private var ruuviTagDataTransactionObserver: TransactionObserver?
+    private var ruuviTagDataTransactionObserver: DatabaseCancellable?
     deinit {
         ruuviTagDataRealmToken?.invalidate()
     }
@@ -47,14 +47,16 @@ final class RuuviTagLastRecordSubjectCombine {
                 (luid?.value != nil && RuuviTagDataSQLite.luidColumn == luid?.value)
                 || (macId?.value != nil && RuuviTagDataSQLite.macColumn == macId?.value)
             )
-        let observation = request.observationForFirst()
 
-        self.ruuviTagDataTransactionObserver = try! observation.start(in: sqlite.database.dbPool) {
-            [weak self] record in
+        let observation = ValueObservation.tracking(request.fetchOne)
+        self.ruuviTagDataTransactionObserver = observation.start(in: sqlite.database.dbPool,
+                                                                 onError: { _ in },
+                                                                 onChange: { [weak self] record in
             if let lastRecord = record?.any {
                 self?.subject.send(lastRecord)
             }
-        }
+        })
+
         let results = self.realm.main.objects(RuuviTagDataRealm.self)
             .filter("ruuviTag.uuid == %@ || ruuviTag.mac == %@",
                     luid?.value ?? "invalid",

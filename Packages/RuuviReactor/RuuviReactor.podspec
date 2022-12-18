@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
     ss.dependency 'RuuviOntology'
     ss.dependency 'RuuviContext'
     ss.dependency 'RealmSwift'
-    ss.dependency 'GRDB.swift'
+    ss.dependency 'GRDB.swift', '~> 6.5.0'
     ss.dependency 'FutureX'
   end
 

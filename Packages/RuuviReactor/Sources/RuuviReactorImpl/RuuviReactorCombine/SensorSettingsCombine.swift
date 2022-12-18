@@ -21,7 +21,7 @@ final class SensorSettingsCombine {
     let updateSubject = PassthroughSubject<SensorSettings, Never>()
     let deleteSubject = PassthroughSubject<SensorSettings, Never>()
 
-    private var ruuviTagController: FetchedRecordsController<SensorSettingsSQLite>
+//    private var ruuviTagController: FetchedRecordsController<SensorSettingsSQLite>
     private var ruuviTagsRealmToken: NotificationToken?
     private var ruuviTagRealmCache = [SensorSettings]()
 
@@ -46,22 +46,22 @@ final class SensorSettingsCombine {
                 (luid?.value != nil && SensorSettingsSQLite.luidColumn == luid?.value)
                 || (macId?.value != nil && SensorSettingsSQLite.macIdColumn == macId?.value)
             )
-        self.ruuviTagController = try! FetchedRecordsController(sqlite.database.dbPool, request: request)
-        try! self.ruuviTagController.performFetch()
-
-        self.ruuviTagController.trackChanges(onChange: { [weak self] _, record, event in
-            guard let sSelf = self else { return }
-            switch event {
-            case .insertion:
-                sSelf.insertSubject.send(record.sensorSettings)
-            case .update:
-                sSelf.updateSubject.send(record.sensorSettings)
-            case .deletion:
-                sSelf.deleteSubject.send(record.sensorSettings)
-            case .move:
-                break
-            }
-        })
+//        self.ruuviTagController = try! FetchedRecordsController(sqlite.database.dbPool, request: request)
+//        try! self.ruuviTagController.performFetch()
+//
+//        self.ruuviTagController.trackChanges(onChange: { [weak self] _, record, event in
+//            guard let sSelf = self else { return }
+//            switch event {
+//            case .insertion:
+//                sSelf.insertSubject.send(record.sensorSettings)
+//            case .update:
+//                sSelf.updateSubject.send(record.sensorSettings)
+//            case .deletion:
+//                sSelf.deleteSubject.send(record.sensorSettings)
+//            case .move:
+//                break
+//            }
+//        })
 
         DispatchQueue.main.async { [weak self] in
             guard let sSelf = self else { return }
