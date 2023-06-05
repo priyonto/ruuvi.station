@@ -2,7 +2,7 @@ name: Distribute to Firebase
 
 on:
   push:
-    branches: [ "github-actions" ]
+    branches: [ "github_actions" ]
 
   workflow_dispatch:
 
