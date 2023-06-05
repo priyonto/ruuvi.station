@@ -5,7 +5,7 @@ on:
     branches: [ "github_actions" ]
  
   workflow_dispatch:
-
+ 
 jobs:
   deploy:
     name: Distributing to Firebase
