@@ -74,27 +74,27 @@ platform :ios do
         create_temp_keychain(name, password)
     end
 
-  lane :install_certificate_and_profile do
-        api_key = app_store_connect_api_key(
-            key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],
-            issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"],
-            key_content: ENV["APP_STORE_CONNECT_API_KEY_KEY"],
-            in_house: false,
-        )
+  # lane :install_certificate_and_profile do
+  #       api_key = app_store_connect_api_key(
+  #           key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],
+  #           issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"],
+  #           key_content: ENV["APP_STORE_CONNECT_API_KEY_KEY"],
+  #           in_house: false,
+  #       )
 
-        keychain_name = ENV["KEYCHAIN_USER"]
-        keychain_password = ENV["KEYCHAIN_PASS"]
-        ensure_temp_keychain(keychain_name, keychain_password)
+  #       keychain_name = ENV["KEYCHAIN_USER"]
+  #       keychain_password = ENV["KEYCHAIN_PASS"]
+  #       ensure_temp_keychain(keychain_name, keychain_password)
 
-        match(
-            type: 'adhoc',
-            app_identifier: "com.ruuvi.station",
-            git_basic_authorization: Base64.strict_encode64(ENV["API_TOKEN"]),
-            keychain_name: keychain_name,
-            keychain_password: keychain_password,
-            api_key: api_key
-        )
-  end
+  #       match(
+  #           type: 'adhoc',
+  #           app_identifier: "com.ruuvi.station",
+  #           git_basic_authorization: Base64.strict_encode64(ENV["API_TOKEN"]),
+  #           keychain_name: keychain_name,
+  #           keychain_password: keychain_password,
+  #           api_key: api_key
+  #       )
+  # end
 
   desc """
   Upload to firebase AppDistribution with options
