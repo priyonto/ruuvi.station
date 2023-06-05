@@ -20,18 +20,11 @@ jobs:
       with:
         xcode-version: latest-stable
             
-    - name: Install SSH key for Certficate repo
-      uses: shimataro/ssh-key-action@v2
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.5.3
       with:
-        key: ${{ secrets.CERT_PRIVATE_KEY }}
-        name: id_rsa-certificate
-        known_hosts: ${{ secrets.KNOWN_HOSTS_CERT }}
-        config: |
-          Host *
-            Hostname github.com
-            User git
-            IdentityFile ~/.ssh/id_rsa-certificate
-      
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+            
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -42,7 +35,6 @@ jobs:
       run: bundle exec fastlane install_certificate_and_profile
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        API_TOKEN: ${{ secrets.API_TOKEN }}
         FIREBASE_REFRESH_TOKEN: ${{ secrets.FIREBASE_REFRESH_TOKEN }}
         GOOGLE_APP_ID: ${{ secrets.GOOGLE_APP_ID }}
         PWD: ${{ secrets.PWD }}
@@ -50,8 +42,6 @@ jobs:
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
         FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
         FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
-        KEYCHAIN_USER: ${{ secrets.KEYCHAIN_USER }}
-        KEYCHAIN_PASS: ${{ secrets.KEYCHAIN_PASS }}
         CI: ${{ secrets.CI }}
         APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID}}
         APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID}}
@@ -67,7 +57,7 @@ jobs:
         path: Pods
         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
-                ${{ runner.os }}-pods-
+          ${{ runner.os }}-pods-
 
     - name: Run linters
       uses: wearerequired/lint-action@v2
@@ -82,7 +72,6 @@ jobs:
         bundle exec fastlane upload_to_firebase build_number:376 scheme:station_dev --verbose
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        API_TOKEN: ${{ secrets.API_TOKEN }}
         FIREBASE_REFRESH_TOKEN: ${{ secrets.FIREBASE_REFRESH_TOKEN }}
         GOOGLE_APP_ID: ${{ secrets.GOOGLE_APP_ID }}
         PWD: ${{ secrets.PWD }}
@@ -90,8 +79,6 @@ jobs:
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
         FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
         FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
-        KEYCHAIN_USER: ${{ secrets.KEYCHAIN_USER }}
-        KEYCHAIN_PASS: ${{ secrets.KEYCHAIN_PASS }}
         CI: ${{ secrets.CI }}
         APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID}}
         APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID}}
