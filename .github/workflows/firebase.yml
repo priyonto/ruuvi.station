@@ -1,0 +1,99 @@
+name: Distribute to Firebase
+
+on:
+  push:
+    branches: [ "github-actions" ]
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Distributing to Firebase
+    runs-on: macOS-latest
+
+    steps:      
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Select Xcode Version
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+            
+    - name: Install SSH key for Certficate repo
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.CERT_PRIVATE_KEY }}
+        name: id_rsa-certificate
+        known_hosts: ${{ secrets.KNOWN_HOSTS_CERT }}
+        config: |
+          Host *
+            Hostname github.com
+            User git
+            IdentityFile ~/.ssh/id_rsa-certificate
+      
+    - name: Setup ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+        bundler-cache: true
+        
+    - name: Install iOS Certificate and Profile
+      run: bundle exec fastlane install_certificate_and_profile
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        API_TOKEN: ${{ secrets.API_TOKEN }}
+        FIREBASE_REFRESH_TOKEN: ${{ secrets.FIREBASE_REFRESH_TOKEN }}
+        GOOGLE_APP_ID: ${{ secrets.GOOGLE_APP_ID }}
+        PWD: ${{ secrets.PWD }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+        FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
+        KEYCHAIN_USER: ${{ secrets.KEYCHAIN_USER }}
+        KEYCHAIN_PASS: ${{ secrets.KEYCHAIN_PASS }}
+        CI: ${{ secrets.CI }}
+        APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID}}
+        APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID}}
+        APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64}}
+        APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY}}   
+
+    - name: CocoaPods Install
+      run: pod install
+
+    - name: Cocoapods Cache
+      uses: actions/cache@v2
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+                ${{ runner.os }}-pods-
+
+    - name: Run linters
+      uses: wearerequired/lint-action@v2
+      with:
+        swiftlint: true
+
+    - name: Deploy to Firebase via Fastlane 
+      run: |
+        export LANG=en_US.UTF-8
+        export LANGUAGE=en_US.UTF-8
+        export LC_ALL=en_US.UTF-8
+        bundle exec fastlane upload_to_firebase build_number:376 scheme:station_dev --verbose
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        API_TOKEN: ${{ secrets.API_TOKEN }}
+        FIREBASE_REFRESH_TOKEN: ${{ secrets.FIREBASE_REFRESH_TOKEN }}
+        GOOGLE_APP_ID: ${{ secrets.GOOGLE_APP_ID }}
+        PWD: ${{ secrets.PWD }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+        FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
+        KEYCHAIN_USER: ${{ secrets.KEYCHAIN_USER }}
+        KEYCHAIN_PASS: ${{ secrets.KEYCHAIN_PASS }}
+        CI: ${{ secrets.CI }}
+        APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID}}
+        APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID}}
+        APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64}}
+        APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY}}
