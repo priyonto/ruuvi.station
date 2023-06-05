@@ -37,7 +37,7 @@ jobs:
       with:
         ruby-version: '3.0'
         bundler-cache: true
-        
+  
     - name: Install iOS Certificate and Profile
       run: bundle exec fastlane install_certificate_and_profile
       env:
