@@ -181,7 +181,6 @@ post_install do |installer|
         config.build_settings['ENABLE_BITCODE'] = 'NO'
         config.build_settings['SUPPORTED_PLATFORMS'] = 'iphoneos iphonesimulator'
         config.build_settings['SUPPORTS_MACCATALYST'] = 'NO'
-        config.build_settings['SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD'] = 'NO'
       end
     end
     # This is specifically for Realm
