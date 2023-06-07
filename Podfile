@@ -177,6 +177,11 @@ post_install do |installer|
         config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
         config.build_settings['SWIFT_SUPPRESS_WARNINGS'] = "YES"
         config.build_settings["DEVELOPMENT_TEAM"] = "4MUYJ4YYH4"
+        config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+        config.build_settings['ENABLE_BITCODE'] = 'NO'
+        config.build_settings['SUPPORTED_PLATFORMS'] = 'iphoneos iphonesimulator'
+        config.build_settings['SUPPORTS_MACCATALYST'] = 'NO'
+        config.build_settings['SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD'] = 'NO'
       end
     end
     # This is specifically for Realm
