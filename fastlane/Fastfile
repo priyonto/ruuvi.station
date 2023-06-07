@@ -23,10 +23,6 @@ def remove_artifacts
 end
 
 platform :ios do
-  before_all do
-      setup_ci if ENV['CI']
-  end
-  
   def install_pods
     cocoapods(
       podfile: "Podfile",
@@ -53,48 +49,6 @@ platform :ios do
     match(type: "development", force_for_new_devices: true)
     match(type: "adhoc", force_for_new_devices: true)
   end
-
-    def delete_temp_keychain(name)
-        delete_keychain(
-          name: name
-        ) if File.exist? File.expand_path("~/Library/Keychains/#{name}-db")
-    end
-
-    def create_temp_keychain(name, password)
-        create_keychain(
-          name: name,
-          password: password,
-          unlock: false,
-          timeout: 0
-        )
-    end
-
-    def ensure_temp_keychain(name, password)
-        delete_temp_keychain(name)
-        create_temp_keychain(name, password)
-    end
-
-  # lane :install_certificate_and_profile do
-  #       api_key = app_store_connect_api_key(
-  #           key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],
-  #           issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"],
-  #           key_content: ENV["APP_STORE_CONNECT_API_KEY_KEY"],
-  #           in_house: false,
-  #       )
-
-  #       keychain_name = ENV["KEYCHAIN_USER"]
-  #       keychain_password = ENV["KEYCHAIN_PASS"]
-  #       ensure_temp_keychain(keychain_name, keychain_password)
-
-  #       match(
-  #           type: 'adhoc',
-  #           app_identifier: "com.ruuvi.station",
-  #           git_basic_authorization: Base64.strict_encode64(ENV["API_TOKEN"]),
-  #           keychain_name: keychain_name,
-  #           keychain_password: keychain_password,
-  #           api_key: api_key
-  #       )
-  # end
 
   desc """
   Upload to firebase AppDistribution with options
@@ -146,20 +100,24 @@ platform :ios do
       merge_commit_filtering: "only_include_merges"
     )
     last_pr_number = changelog[/\d+/]
-    result = github_api(
-      server_url: "https://api.github.com",
-      http_method: "GET",
-      path: "/repos/ruuvi/com.ruuvi.station.ios/pulls/" + last_pr_number
-    )
-    last_pr_title = result[:json]['title']
-    last_pr_body = result[:json]['body']
-    if last_pr_title.nil?
+    if last_pr_number.nil?
+      puts "No PR number found in the changelog"
+    else
+      result = github_api(
+        server_url: "https://api.github.com",
+        http_method: "GET",
+        path: "/repos/ruuvi/com.ruuvi.station.ios/pulls/" + last_pr_number
+      )
+      last_pr_title = result[:json]['title']
+      last_pr_body = result[:json]['body']
+      if last_pr_title.nil?
         last_pr_title = "No PR title found"
-    end
-    if last_pr_body.nil?
+      end
+      if last_pr_body.nil?
         last_pr_body = "No PR body found"
+      end
+      release_notes = last_pr_title + "\n\n" + last_pr_body
     end
-    release_notes = last_pr_title + "\n\n" + last_pr_body
 
     firebase_app_distribution(
       app: ENV["GOOGLE_APP_ID"],
