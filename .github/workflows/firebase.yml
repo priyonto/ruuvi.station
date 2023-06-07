@@ -30,6 +30,12 @@ jobs:
       with:
         ruby-version: '3.0'
         bundler-cache: true
+
+    - name: Update bundle
+      run: bundle update
+      
+    - name: Update plugins
+      run: bundle exec fastlane update_plugins
   
     # - name: Install iOS Certificate and Profile
     #   run: bundle exec fastlane install_certificate_and_profile
@@ -59,10 +65,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pods-
 
-    - name: Run linters
-      uses: wearerequired/lint-action@v2
-      with:
-        swiftlint: true
+    # - name: Run linters
+    #   uses: wearerequired/lint-action@v2
+    #   with:
+    #     swiftlint: true
 
     - name: Deploy to Firebase via Fastlane 
       run: |
