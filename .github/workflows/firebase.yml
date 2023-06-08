@@ -51,16 +51,16 @@ jobs:
     #     APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64}}
     #     APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY}}   
 
-    # - name: CocoaPods Install
-    #   run: pod install
+    - name: CocoaPods Install
+      run: pod install
  
-    # - name: Cocoapods Cache
-    #   uses: actions/cache@v2
-    #   with:
-    #     path: Pods
-    #     key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-pods-
+    - name: Cocoapods Cache
+      uses: actions/cache@v2
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
 
     # - name: Run linters
     #   uses: wearerequired/lint-action@v2
