@@ -9,7 +9,7 @@ on:
 jobs:
   deploy:
     name: Distributing to Firebase
-    runs-on: macOS-latest
+    runs-on: self-hosted
 
     steps:      
     - name: Checkout
