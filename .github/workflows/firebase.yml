@@ -51,6 +51,10 @@ jobs:
     #     APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64}}
     #     APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY}}   
 
+    - name: Add submodule
+      run: |
+        git clone -b dev https://github.com/ruuvi/station.localization.git ${{ github.workspace }}
+
     - name: CocoaPods Install
       run: pod install
  
