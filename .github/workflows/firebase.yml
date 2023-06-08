@@ -54,6 +54,9 @@ jobs:
     - name: Add submodule
       run: |
         git clone -b dev https://github.com/ruuvi/station.localization.git ${{ github.workspace }}/station.localization
+  
+    - name: Run match
+      run: bundle exec fastlane match adhoc --force_for_new_devices -a com.ruuvi.station,com.ruuvi.station.widgets,com.ruuvi.station.intents,com.ruuvi.station.pnservice
 
     - name: CocoaPods Install
       run: pod install
@@ -70,8 +73,6 @@ jobs:
     #   uses: wearerequired/lint-action@v2
     #   with:
     #     swiftlint: true
-    - name: Run match
-      run: bundle exec fastlane --verbose match adhoc
 
     - name: Deploy to Firebase via Fastlane 
       run: |
