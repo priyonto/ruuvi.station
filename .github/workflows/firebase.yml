@@ -53,7 +53,7 @@ jobs:
 
     - name: Add submodule
       run: |
-        git clone -b dev https://github.com/ruuvi/station.localization.git ${{ github.workspace }}
+        git clone -b dev https://github.com/ruuvi/station.localization.git ${{ github.workspace }}/station.localization
 
     - name: CocoaPods Install
       run: pod install
