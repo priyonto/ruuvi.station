@@ -31,8 +31,6 @@ jobs:
         ruby-version: '3.2.1'
         bundler-cache: true
 
-    - name: Update Bundle
-      run: bundle update
     # - name: Update plugins
     #   run: bundle exec fastlane update_plugins
   
@@ -72,13 +70,15 @@ jobs:
     #   uses: wearerequired/lint-action@v2
     #   with:
     #     swiftlint: true
+    - name: Run match
+      run: bundle exec fastlane --verbose match adhoc
 
     - name: Deploy to Firebase via Fastlane 
       run: |
         export LANG=en_US.UTF-8
         export LANGUAGE=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
-        bundle exec fastlane upload_to_firebase build_number:378 scheme:station_dev --verbose
+        bundle exec fastlane --verbose upload_to_firebase build_number:378 scheme:station_dev
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         FIREBASE_REFRESH_TOKEN: ${{ secrets.FIREBASE_REFRESH_TOKEN }}
