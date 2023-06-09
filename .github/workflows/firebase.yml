@@ -55,24 +55,24 @@ jobs:
       run: |
         git clone -b dev https://github.com/ruuvi/station.localization.git ${{ github.workspace }}/station.localization
   
-    - name: Run match
-      run: bundle exec fastlane match adhoc --force_for_new_devices -a com.ruuvi.station,com.ruuvi.station.widgets,com.ruuvi.station.intents,com.ruuvi.station.pnservice
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        FIREBASE_REFRESH_TOKEN: ${{ secrets.FIREBASE_REFRESH_TOKEN }}
-        GOOGLE_APP_ID: ${{ secrets.GOOGLE_APP_ID }}
-        PWD: ${{ secrets.PWD }}
-        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
-        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
-        FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
-        CI: ${{ secrets.CI }}
-        APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID}}
-        APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID}}
-        APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64}}
-        APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY}}
-        SPACESHIP_ONLY_ALLOW_INTERACTIVE_2FA: "true"
-        FASTLANE_IS_INTERACTIVE: "false"
+    # - name: Run match
+    #   run: bundle exec fastlane match adhoc --force_for_new_devices -a com.ruuvi.station,com.ruuvi.station.widgets,com.ruuvi.station.intents,com.ruuvi.station.pnservice
+    #   env:
+    #     MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+    #     FIREBASE_REFRESH_TOKEN: ${{ secrets.FIREBASE_REFRESH_TOKEN }}
+    #     GOOGLE_APP_ID: ${{ secrets.GOOGLE_APP_ID }}
+    #     PWD: ${{ secrets.PWD }}
+    #     FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+    #     FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+    #     FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+    #     FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
+    #     CI: ${{ secrets.CI }}
+    #     APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID}}
+    #     APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID}}
+    #     APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64}}
+    #     APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY}}
+        # SPACESHIP_ONLY_ALLOW_INTERACTIVE_2FA: "true"
+        # FASTLANE_IS_INTERACTIVE: "false"
 
     - name: CocoaPods Install
       run: pod install
@@ -110,3 +110,5 @@ jobs:
         APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID}}
         APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64}}
         APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY}}
+        SPACESHIP_ONLY_ALLOW_INTERACTIVE_2FA: "true"
+        FASTLANE_IS_INTERACTIVE: "false"
