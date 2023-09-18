@@ -32,18 +32,16 @@ jobs:
           name: CocoaPods Install
           command: pod install
       
-      # - run:
-      #     name: Install Provisioning Profiles
-      #     command: |
-      #       bundle exec fastlane match adhoc -a com.ruuvi.station,com.ruuvi.station.widgets,com.ruuvi.station.intents,com.ruuvi.station.pnservice --readonly
-      #       bundle exec fastlane match development -a com.ruuvi.station,com.ruuvi.station.widgets,com.ruuvi.station.intents,com.ruuvi.station.pnservice --readonly
-      #     environment:
-      #       MATCH_PASSWORD: $MATCH_PASSWORD
-      #       FASTLANE_PASSWORD: $FASTLANE_PASSWORD
-      #       FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: $FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD
-      #       KEYCHAIN_PASSWORD: $KEYCHAIN_PASSWORD
-      #       LC_ALL: en_US.UTF-8
-      #       LANG: en_US.UTF-8
+      - run:
+          name: Install Provisioning Profiles
+          command: |
+            bundle exec fastlane match adhoc -a com.ruuvi.station,com.ruuvi.station.widgets,com.ruuvi.station.intents,com.ruuvi.station.pnservice --readonly
+            bundle exec fastlane match development -a com.ruuvi.station,com.ruuvi.station.widgets,com.ruuvi.station.intents,com.ruuvi.station.pnservice --readonly
+          environment:
+            MATCH_PASSWORD: RuuviBear1
+            FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD
+            LC_ALL: en_US.UTF-8
+            LANG: en_US.UTF-8
 
       - run:
           name: Fastlane
