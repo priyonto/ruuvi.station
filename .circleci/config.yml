@@ -7,6 +7,10 @@ jobs:
     macos:
       xcode: 14.3.1
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "85:de:23:a6:e2:6f:37:17:a9:62:bb:b3:61:b9:76:cb"
+    
       - checkout
       
       - run:
