@@ -1,37 +1,59 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/configuration-reference
-# For a detailed guide to building and testing on iOS, read the docs:
-# https://circleci.com/docs/testing-ios/
 version: 2.1
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/configuration-reference/#jobs
+orbs:
+  # Import any required orbs here, for example:
+  cocoapods: circleci/cocoapods@1.0
+
 jobs:
   build:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/configuration-reference/#docker-machine-macos-windows-executor
     macos:
-      xcode: 11.0.0 # Specify the Xcode version to use
-
-    # Add steps to the job
-    # See: https://circleci.com/docs/configuration-reference/#steps
+      xcode: "13.0" # Adjust this according to your project's requirements
     steps:
       - checkout
-      - run: pod install # Install CocoaPods dependencies
-      - run: fastlane scan # Run tests using Fastlane
+      
+      - run:
+          name: Setup ruby
+          command: |
+            echo 'ruby-3.2.2' > .ruby-version
+            gem install bundler
+            bundle install --jobs 4 --retry 3
 
-      # Collect XML test results data to show in the UI, and save the same XML
-      # files under test-results folder in the Artifacts tab
-      - store_test_results:
-          path: test_output
-      - store_artifacts:
-          path: test_output
-          destination: scan-output
+      - run:
+          name: Remove existing localization directory
+          command: rm -rf station.localization
+      
+      - run:
+          name: Clone localisation submodule
+          command: git clone -b dev https://github.com/ruuvi/station.localization.git station.localization
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/configuration-reference/#workflows
+      - run:
+          name: CocoaPods Install
+          command: pod install
+      
+      # - run:
+      #     name: Install Provisioning Profiles
+      #     command: |
+      #       bundle exec fastlane match adhoc -a com.ruuvi.station,com.ruuvi.station.widgets,com.ruuvi.station.intents,com.ruuvi.station.pnservice --readonly
+      #       bundle exec fastlane match development -a com.ruuvi.station,com.ruuvi.station.widgets,com.ruuvi.station.intents,com.ruuvi.station.pnservice --readonly
+      #     environment:
+      #       MATCH_PASSWORD: $MATCH_PASSWORD
+      #       FASTLANE_PASSWORD: $FASTLANE_PASSWORD
+      #       FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: $FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD
+      #       KEYCHAIN_PASSWORD: $KEYCHAIN_PASSWORD
+      #       LC_ALL: en_US.UTF-8
+      #       LANG: en_US.UTF-8
+
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane --verbose upload_to_firebase build_number:407 scheme:station_dev
+          environment:
+            MATCH_PASSWORD: $MATCH_PASSWORD
+            FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: $FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD
+            LC_ALL: en_US.UTF-8
+            LANG: en_US.UTF-8
+
 workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  version: 2
+  build:
     jobs:
       - build
