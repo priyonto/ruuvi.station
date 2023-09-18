@@ -49,8 +49,8 @@ jobs:
           name: Fastlane
           command: bundle exec fastlane --verbose upload_to_firebase build_number:407 scheme:station_dev
           environment:
-            MATCH_PASSWORD: $MATCH_PASSWORD
-            FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: $FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD
+            MATCH_PASSWORD: MATCH_PASSWORD
+            FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD
             LC_ALL: en_US.UTF-8
             LANG: en_US.UTF-8
 
