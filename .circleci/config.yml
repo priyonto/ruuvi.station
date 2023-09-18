@@ -1,8 +1,6 @@
 version: 2.1
 
 orbs:
-  # Import any required orbs here, for example:
-  cocoapods: circleci/cocoapods@1.0
 
 jobs:
   build:
