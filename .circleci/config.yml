@@ -28,9 +28,9 @@ jobs:
           name: Clone localisation submodule
           command: git clone -b dev https://github.com/ruuvi/station.localization.git station.localization
 
-      # - run:
-      #     name: CocoaPods Install
-      #     command: pod install
+      - run:
+          name: CocoaPods Install
+          command: pod install
       
       # - run:
       #     name: Install Provisioning Profiles
