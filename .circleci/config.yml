@@ -5,7 +5,7 @@ orbs:
 jobs:
   build:
     macos:
-      xcode: "13.0" # Adjust this according to your project's requirements
+      xcode: 14.3.1
     steps:
       - checkout
       
